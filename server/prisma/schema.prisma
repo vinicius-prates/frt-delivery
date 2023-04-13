@@ -30,7 +30,7 @@ model Address{
 
   users User[]
 }
-model Fruit {
+model Product {
   id           String   @id @default(cuid())
   name         String
   priceUnit    Float
@@ -42,5 +42,5 @@ model Fruit {
 model Category {
   id     String  @id @default(cuid())
   name   String
-  fruits Fruit[]
+  products Product[]
 }
