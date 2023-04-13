@@ -10,18 +10,37 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Fruit {
-  id String @id @default(cuid())
-  name String 
-  priceUnit Float
-  categoryName String
-  category Category @relation(fields: [categoryName], references: [id])
-  description String 
+model User {
+  id   String @id @default(cuid())
+  name String
+  age  Int
+  email String @unique
+  password String @unique
+  addressId String
+  address Address @relation( fields: [addressId], references: [id])
 }
 
-model Category{
+model Address{
   id String @id @default(cuid())
-  name String
-  fruits Fruit[]
+  city String
+  street String
+  number Int
+  complement String?
+  cep Int
 
+  users User[]
+}
+model Fruit {
+  id           String   @id @default(cuid())
+  name         String
+  priceUnit    Float
+  categoryName String
+  category     Category @relation(fields: [categoryName], references: [id])
+  description  String
+}
+
+model Category {
+  id     String  @id @default(cuid())
+  name   String
+  fruits Fruit[]
 }
