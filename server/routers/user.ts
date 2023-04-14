@@ -30,7 +30,15 @@ export const userRouter = t.router({
                     age: input.age, 
                     email: input.email,
                     password: input.password,
-                    addresss: input.address
+                    address: {
+                        create: {
+                             street: input.address.street,
+                             city: input.address.city,
+                             number: input.address.number, 
+                             cep: input.address.cep,
+                             complement: input.address.complement
+                        }
+                    }
                 }
 
             })
@@ -44,6 +52,27 @@ export const userRouter = t.router({
 
             })
             
+        }
+    }),
+
+    getSingle: t.procedure.input(z.object({
+        id: z.string(),
+
+    })).query(async ({input}) => {
+        try {
+            const user = prisma.user.findFirst({
+                where:{
+                    id: input.id
+                }
+            })
+
+            return { user };
+        } catch (error) {
+            throw new TRPCError({
+                code:"INTERNAL_SERVER_ERROR",
+                cause: error, 
+                message:"Could not get user."
+            })
         }
     })
 })
