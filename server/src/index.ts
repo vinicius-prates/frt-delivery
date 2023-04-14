@@ -3,13 +3,15 @@ import { categoryRouter } from "../routers/category";
 import { productRouter } from "../routers/product";
 import * as trpcExpress from "@trpc/server/adapters/express";
 import { createContext, router } from "./utils/trpc";
+import { userRouter } from "../routers/user";
  
 export const app = express()
 
 
 const appRouter = router({
     product: productRouter,
-    category: categoryRouter
+    category: categoryRouter,
+    user: userRouter
 });
 
 export type AppRouter = typeof appRouter;
