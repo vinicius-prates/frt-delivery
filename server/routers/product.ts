@@ -36,4 +36,20 @@ export const productRouter = t.router({
         }
     }),
 
+    getall: t.procedure.query(async () => {
+        try {
+            const products = prisma.product.findMany();
+
+            return { products };
+
+        } catch (error) {
+            throw new TRPCError({
+                code:"INTERNAL_SERVER_ERROR",
+                cause:error, 
+                message:"Could not get any product."
+            })
+        }
+    }
+    )
+
 })
